@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>fizzy-o-meter</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="snap.svg-min.js"></script>
+    <script>
+    google.load('visualization', '1.0');
+    setTimeout(function() {
+        query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1jKl4_0APvlthC0b4PTOdnm-9bRfZCtjdLu90dVVKYPI/edit#gid=1417638248');
+        query.setQuery('select A');
+
+        query.send(handleQueryResponse);
+    }, 2000);
+
+    function handleQueryResponse(response) {
+        console.log(response.q);
+    }
+    </script>
+    <script type="text/javascript">
+    var s = Snap(800, 600);
+    var bigCircle = s.circle(150, 150, 100);
+
+    bigCircle.attr({
+        fill: "#bada55",
+        stroke: "#000",
+        strokeWidth: 5
+    });
+
+    var smallCircle = s.circle(100, 150, 70);
+
+    var discs = s.group(smallCircle, s.circle(200, 150, 70));
+
+    discs.attr({
+        fill: "#fff"
+    });
+
+    bigCircle.attr({
+        mask: discs
+    });
+
+    smallCircle.animate({
+        r: 50
+    }, 1000);
+
+    discs.select("circle:nth-child(2)").animate({
+        r: 50
+    }, 1000);
+    </script>
+</body>
+
+</html>
