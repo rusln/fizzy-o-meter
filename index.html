@@ -2,53 +2,113 @@
 
 <head>
     <title>fizzy-o-meter</title>
+    <style>
+        body{
+            font-family: monospace;
+            text-align: center;
+        }
+        p{
+            margin:0 auto;
+            font-size: 4em;
+        }
+        h1{
+            margin:0 auto ;
+            font-size: 5em;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>fizzy-o-meter</h1>
+    <p id="total"></p>
+    <p id="today"></p>
+    <!-- <svg height="600" version="1.1" width="690" xmlns="http://www.w3.org/2000/svg" style="padding:20px">
+        <desc>Created with Snap</desc>
+        <defs></defs>
+        <circle cx="300" cy="300" r="100" fill="rgba(255, 255, 255, 0)" stroke="#000000" stroke-width="2"></circle>
+        <circle cx="270" cy="300" r="100" fill="rgba(255, 255, 255, 0)" stroke="#000000" stroke-width="2"></circle>
+        <circle cx="380" cy="300" r="100" fill="rgba(255, 255, 255, 0)" stroke="#000000" stroke-width="2"></circle>
+    </svg> -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="snap.svg-min.js"></script>
     <script>
     google.load('visualization', '1.0');
     setTimeout(function() {
         query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1jKl4_0APvlthC0b4PTOdnm-9bRfZCtjdLu90dVVKYPI/edit#gid=1417638248');
-        query.setQuery('select A');
+        query.setQuery('select C, A, B');
 
         query.send(handleQueryResponse);
-    }, 2000);
+    }, 1000);
 
     function handleQueryResponse(response) {
+        var latest = response.q.Lf[0].c;
+        console.log(latest);
+        document.getElementById("total").innerHTML = response.q.Lf[0].c[0].f;
+        document.getElementById("today").innerHTML = response.q.Lf[0].c[1].f.match(/\d{1,2}-\d{1,2}-\d{4}/)[0];
         console.log(response.q);
     }
     </script>
     <script type="text/javascript">
-    var s = Snap(800, 600);
-    var bigCircle = s.circle(150, 150, 100);
+    // var s = Snap(690, 600);
+    // s.attr({
+    //     style: "padding:20px"
+    // });
+    // var smallCircle = s.circle(100, 150, 70);
 
-    bigCircle.attr({
-        fill: "#bada55",
-        stroke: "#000",
-        strokeWidth: 5
-    });
+    // var discs = s.group(smallCircle, s.circle(200, 150, 70));
 
-    var smallCircle = s.circle(100, 150, 70);
+    // discs.attr({
+    //     fill: "#fff"
+    // });
+    // var bigCircle = s.circle(300, 300, 100);
+    // var bigCircle2 = s.circle(270, 300, 100);
+    // var bigCircle3 = s.circle(380, 300, 100);
 
-    var discs = s.group(smallCircle, s.circle(200, 150, 70));
+    // bigCircle.attr({
+    //     fill: "white",
+    //     stroke: "black"
+    // });
+    // bigCircle2.attr({
+    //     fill: "white",
+    //     stroke: "black"
+    // });
+    // bigCircle3.attr({
+    //     fill: "white",
+    //     stroke: "black"
+    // });
 
-    discs.attr({
-        fill: "#fff"
-    });
+    // var rectangle = s.rect(0,0,200,200);
+    // rectangle.attr({
+    //     fill:"green"
+    // });
 
-    bigCircle.attr({
-        mask: discs
-    });
+    // var bigCircle = s.circle(100,100,100);
 
-    smallCircle.animate({
-        r: 50
-    }, 1000);
+    // bigCircle.attr({
+    //     fill: "#bada55"
+    // });
+    // rectangle.attr({
+    //     mask: bigCircle
+    // });
 
-    discs.select("circle:nth-child(2)").animate({
-        r: 50
-    }, 1000);
+    // // loophole
+    // function anim(){
+    //     rectangle.animate({height: 0}, 1000,mina.bounce,function reanimate(){
+    //         rectangle.animate({height: 200}, 1000,mina.bounce,function loophole(){
+    //             anim();
+    //         });
+    //     });
+    // }
+
+
+    // anim();
+    // smallCircle.animate({
+    //     r: 50
+    // }, 1000);
+
+    // discs.select("circle:nth-child(2)").animate({
+    //     r: 50
+    // }, 1000);
     </script>
 </body>
 
